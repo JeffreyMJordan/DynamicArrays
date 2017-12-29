@@ -2,6 +2,7 @@ require_relative "static_array"
 require 'byebug'
 class RingBuffer
   attr_reader :length
+  attr_accessor :capacity
 
   def initialize
     @capacity = 8
@@ -80,7 +81,7 @@ class RingBuffer
   end
 
   protected
-  attr_accessor :capacity, :start_idx, :store
+  attr_accessor :start_idx, :store
   attr_writer :length
 
   def check_index(index)
