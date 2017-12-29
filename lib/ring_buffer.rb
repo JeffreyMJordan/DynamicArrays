@@ -44,11 +44,11 @@ class RingBuffer
   end 
 
   def push(val)
-    @length += 1 
     if(@length==@capacity)
       resize!
-    end 
-    self.[]=(end_idx-1, val)
+    end
+    @length += 1  
+    self.[]=(@length-1, val)
   end
 
   # O(1)
@@ -64,6 +64,10 @@ class RingBuffer
 
   # O(1) ammortized
   def unshift(val)
+    if (@length==@capacity)
+      resize!
+    end 
+
     if @length==0 
       @store[@start_idx] = val
     else 
@@ -86,5 +90,12 @@ class RingBuffer
   end
 
   def resize!
+    new_store = StaticArray.new(@capacity*2)
+    (0..@length-1).each do |idx| 
+      new_store[idx] = self[idx]
+    end
+    @capacity = @capacity*2
+    @store = new_store
+    @start_idx = 0 
   end
 end

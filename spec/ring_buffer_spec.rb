@@ -58,7 +58,7 @@ describe RingBuffer do
     arr = RingBuffer.new
 
     16.times { |i| arr.unshift(i) }
-
+    p arr
     16.times { |i| expect(arr[i]).to eq(15-i) }
 
   end
@@ -124,7 +124,6 @@ describe RingBuffer do
 
       8.times do |i|
         arr.push(i)
-
         # do not change the store until resize
         expect(arr.send(:store)).to be(store)
         expect(arr.send(:capacity)).to eq(8)
